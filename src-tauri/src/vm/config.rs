@@ -56,9 +56,10 @@ impl VmConfig {
     }
 
     pub fn qmp_socket_path(&self) -> PathBuf {
-        // Unix socket paths are limited to ~104 bytes on macOS.
-        // Use the VM data dir instead of tmp to keep paths short.
-        self.vm_dir().join("qmp.sock")
+        // macOS Unix socket paths are limited to 104 bytes (sockaddr_un.sun_path).
+        // Use /tmp with a short id prefix to stay under the limit.
+        let short = &self.id[..self.id.len().min(8)];
+        PathBuf::from(format!("/tmp/pds-{short}.sock"))
     }
 
     pub fn save(&self) -> anyhow::Result<()> {
