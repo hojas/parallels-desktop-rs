@@ -56,7 +56,9 @@ impl VmConfig {
     }
 
     pub fn qmp_socket_path(&self) -> PathBuf {
-        runtime_dir().join(format!("{}.sock", &self.id))
+        // Unix socket paths are limited to ~104 bytes on macOS.
+        // Use the VM data dir instead of tmp to keep paths short.
+        self.vm_dir().join("qmp.sock")
     }
 
     pub fn save(&self) -> anyhow::Result<()> {
@@ -102,14 +104,6 @@ pub fn data_dir() -> PathBuf {
 
 fn new_vm_id() -> String {
     Uuid::new_v4().to_string()
-}
-
-pub fn runtime_dir() -> PathBuf {
-    let base = dirs::runtime_dir()
-        .unwrap_or_else(std::env::temp_dir)
-        .join("parallels-desktop-rs");
-    std::fs::create_dir_all(&base).ok();
-    base
 }
 
 #[cfg(test)]

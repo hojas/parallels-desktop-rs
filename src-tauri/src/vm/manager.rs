@@ -1,5 +1,5 @@
 use crate::plugin::events::SerialOutputEvent;
-use crate::vm::config::{runtime_dir, VmConfig};
+use crate::vm::config::VmConfig;
 use crate::vm::qemu::command_builder::build_qemu_args;
 use crate::vm::qemu::qmp_client::QmpClient;
 use std::sync::Arc;
@@ -69,7 +69,7 @@ impl VmManager {
         *state = VmState::Starting;
 
         let args = build_qemu_args(&self.config);
-        std::fs::create_dir_all(runtime_dir())?;
+        std::fs::create_dir_all(self.config.vm_dir())?;
 
         tracing::info!("Starting QEMU: {}", args.join(" "));
 
