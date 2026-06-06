@@ -4,14 +4,9 @@ mod vm;
 
 use plugin::commands;
 use plugin::state::AppState;
-use tracing_subscriber::EnvFilter;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::from_default_env())
-        .init();
-
     tauri::Builder::default()
         .setup(|app| {
             // Platform validation
