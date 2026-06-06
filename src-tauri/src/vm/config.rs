@@ -5,6 +5,7 @@ use uuid::Uuid;
 /// VM configuration persisted to disk.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VmConfig {
+    #[serde(default = "new_vm_id")]
     pub id: String,
     pub name: String,
     pub cpu_count: u32,
@@ -93,6 +94,10 @@ pub fn data_dir() -> PathBuf {
         .unwrap_or_else(|| PathBuf::from("."))
         .join("parallels-desktop-rs")
         .join("vms")
+}
+
+fn new_vm_id() -> String {
+    Uuid::new_v4().to_string()
 }
 
 pub fn runtime_dir() -> PathBuf {
