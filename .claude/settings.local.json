@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo build *)",
+      "Bash(cargo test *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo fmt *)",
+      "Bash(cargo run *)",
+      "Bash(cargo check *)",
+      "Bash(node *)",
+      "Bash(git *)",
+      "Read(//Users/chenyx/.claude/skills/ecc/rust-patterns/**)",
+      "Read(//Users/chenyx/.claude/ecc/**)",
+      "Read(//Users/chenyx/.claude/skills/ecc/**)"
+    ],
+    "deny": [
+      "Bash(cargo publish)"
+    ]
+  }
+}
