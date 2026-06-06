@@ -1,0 +1,164 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  -webkit-app-region: drag;
+}
+.toolbar h1 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.toolbar-actions {
+  -webkit-app-region: no-drag;
+}
+
+.btn-start {
+  background: var(--color-accent);
+  color: white;
+}
+.btn-stop {
+  background: var(--color-error);
+  color: white;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 280px;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+.sidebar h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+.sidebar label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.terminal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+  background: #000;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  background: #1a1a24;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.status.running {
+  color: var(--color-success);
+}
+.status.stopped {
+  color: var(--color-text-muted);
+}
+
+.terminal-output {
+  flex: 1;
+  padding: 0.75rem;
+  font-family: "Menlo", "Monaco", monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #c0c0c0;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.vm-list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+.vm-empty {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  padding: 0.5rem 0;
+}
+.vm-item {
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  transition: background 0.15s;
+}
+.vm-item:hover { background: rgba(255,255,255,0.05); }
+.vm-item.active {
+  background: rgba(108, 92, 240, 0.15);
+  border: 1px solid var(--color-accent);
+}
+.vm-name { display: block; font-size: 0.8rem; font-weight: 500; }
+.vm-detail {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  margin-top: 0.15rem;
+}
+
+.btn-create {
+  width: 100%;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  margin-top: 0.5rem;
+}
+.btn-create:hover { background: var(--color-accent); color: white; }
+.btn-delete {
+  background: transparent; color: var(--color-error);
+  border: 1px solid var(--color-error); font-size: 0.75rem;
+}
+.btn-delete:hover { background: var(--color-error); color: white; }
+
+.error-banner {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: var(--color-error); color: white;
+  padding: 0.5rem 1rem; font-size: 0.8rem;
+  z-index: 100; cursor: pointer; text-align: center;
+}
+
+.snapshot-form { display: flex; gap: 0.25rem; margin-bottom: 0.5rem; }
+.snapshot-form input { flex: 1; min-width: 0; font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+.btn-snapshot { background: var(--color-accent); color: white; font-size: 0.7rem; padding: 0.3rem 0.5rem; white-space: nowrap; }
+.snapshot-list { list-style: none; margin-bottom: 1rem; }
+.snapshot-item { display: flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0; font-size: 0.7rem; border-bottom: 1px solid var(--color-border); }
+.snap-tag { font-weight: 600; color: var(--color-accent); min-width: 60px; }
+.snap-time { color: var(--color-text-muted); font-size: 0.65rem; margin-left: auto; }
+.snap-actions { display: flex; gap: 0.2rem; }
+.snap-actions button { font-size: 0.6rem; padding: 0.15rem 0.35rem; background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); border-radius: 4px; }
+.snap-actions .btn-danger { color: var(--color-error); border-color: var(--color-error); }
