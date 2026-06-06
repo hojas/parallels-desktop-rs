@@ -1,7 +1,18 @@
 use crate::vm::config::VmConfig;
 
+/// Expand ~ in a path string.
+fn expand_tilde(path: &str) -> String {
+    if path.starts_with('~') {
+        if let Some(home) = dirs::home_dir() {
+            return home.to_string_lossy().to_string() + &path[1..];
+        }
+    }
+    path.to_string()
+}
+
 /// Build QEMU command-line arguments from a VmConfig.
 pub fn build_qemu_args(config: &VmConfig) -> Vec<String> {
+    let disk = expand_tilde(&config.disk_path.to_string_lossy());
     let mut args: Vec<String> = vec![
         "qemu-system-aarch64".into(),
         "-M".into(),
@@ -22,17 +33,14 @@ pub fn build_qemu_args(config: &VmConfig) -> Vec<String> {
         "-monitor".into(),
         "none".into(),
         "-drive".into(),
-        format!(
-            "if=virtio,format=qcow2,file={}",
-            config.disk_path.display()
-        ),
+        format!("if=virtio,format=qcow2,file={disk}"),
     ];
 
     if let Some(ref iso) = config.iso_path {
+        let iso_expanded = expand_tilde(&iso.to_string_lossy());
         args.push("-drive".into());
         args.push(format!(
-            "if=virtio,format=raw,file={},media=cdrom",
-            iso.display()
+            "if=virtio,format=raw,file={iso_expanded},media=cdrom"
         ));
     }
 
