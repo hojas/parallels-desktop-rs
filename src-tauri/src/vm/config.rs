@@ -12,22 +12,26 @@ pub struct VmConfig {
     pub memory_mb: u64,
     pub disk_path: PathBuf,
     pub iso_path: Option<PathBuf>,
+    #[serde(default)]
     pub os_type: OsType,
+    #[serde(default)]
     pub display: DisplayMode,
     #[serde(default)]
     pub shared_folders: Vec<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum OsType {
+    #[default]
     Linux,
     Windows,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum DisplayMode {
+    #[default]
     Serial,
     Graphical,
 }
